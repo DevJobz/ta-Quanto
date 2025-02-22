@@ -282,8 +282,8 @@ const slides = document.querySelectorAll('.carousel-slide img');
 const totalSlides = slides.length;
 
 // Histórico para desfazer/refazer
-let history = [];
-let historyIndex = -1;
+let history = []; // Array para armazenar o histórico de estados do carrinho
+let historyIndex = -1; // Índice do estado atual no histórico
 
 function showSlide(index) {
     const slideWidth = slides[0].clientWidth;
@@ -442,6 +442,7 @@ function sortProducts(sortType) {
 }
 
 function addToCart(productId) {
+    saveHistory(); // Salva o estado atual antes de adicionar o item
     const product = products.find((p) => p.id === productId);
     const existingItem = cartItems.find((item) => item.id === productId);
 
@@ -450,8 +451,6 @@ function addToCart(productId) {
     } else {
         cartItems.push({ ...product, quantity: 1 });
     }
-
-    saveHistory();
 
     const addButton = document.querySelector(
         `.item-card button[onclick="addToCart(${productId})"]`
@@ -475,14 +474,13 @@ function removeFromCart(productId, event) {
         event.preventDefault();
     }
 
+    saveHistory(); // Salva o estado atual antes de remover o item
     const scrollPosition = window.scrollY;
 
     const itemIndex = cartItems.findIndex((item) => item.id === productId);
     if (itemIndex !== -1) {
         cartItems.splice(itemIndex, 1);
     }
-
-    saveHistory();
 
     updateCartAndComparison();
 
@@ -728,34 +726,44 @@ function downloadCoupon() {
 
 // Funções para Desfazer, Refazer e Zerar Carrinho
 function saveHistory() {
+    // Remove estados futuros (se houver)
     history = history.slice(0, historyIndex + 1);
-    history.push([...cartItems]);
+    // Salva uma cópia profunda do carrinho atual
+    history.push(JSON.parse(JSON.stringify(cartItems)));
+    // Avança o índice do histórico
     historyIndex++;
 }
 
 function undoAction() {
     if (historyIndex > 0) {
-        historyIndex--;
-        cartItems = [...history[historyIndex]];
-        updateCartAndComparison();
-        updateAddButtons();
-        updateCouponDisplay();
+        historyIndex--; // Volta para o estado anterior
+        cartItems = JSON.parse(JSON.stringify(history[historyIndex])); // Restaura o carrinho para o estado anterior
+        updateCartAndComparison(); // Atualiza a interface
+        updateAddButtons(); // Atualiza os botões de adicionar
+        if (isCouponGenerated) {
+            updateCouponDisplay(); // Atualiza o cupom automaticamente
+        }
     } else if (historyIndex === 0) {
+        // Se não houver mais estados anteriores, limpa o carrinho
         cartItems = [];
         historyIndex = -1;
         updateCartAndComparison();
         updateAddButtons();
-        updateCouponDisplay();
+        if (isCouponGenerated) {
+            updateCouponDisplay(); // Atualiza o cupom automaticamente
+        }
     }
 }
 
 function redoAction() {
     if (historyIndex < history.length - 1) {
-        historyIndex++;
-        cartItems = [...history[historyIndex]];
-        updateCartAndComparison();
-        updateAddButtons();
-        updateCouponDisplay();
+        historyIndex++; // Avança para o próximo estado
+        cartItems = JSON.parse(JSON.stringify(history[historyIndex])); // Restaura o carrinho para o próximo estado
+        updateCartAndComparison(); // Atualiza a interface
+        updateAddButtons(); // Atualiza os botões de adicionar
+        if (isCouponGenerated) {
+            updateCouponDisplay(); // Atualiza o cupom automaticamente
+        }
     }
 }
 
@@ -835,13 +843,13 @@ document.getElementById('feedbackForm').addEventListener('submit', (event) => {
 });
 
 function editQuantity(productId, newQuantity) {
+    saveHistory(); // Salva o estado atual antes de alterar a quantidade
     const item = cartItems.find((item) => item.id === parseInt(productId, 10));
     if (item) {
         item.quantity = parseInt(newQuantity, 10);
-        saveHistory();
-        updateCartAndComparison();
+        updateCartAndComparison(); // Atualiza a tabela de comparação
         if (isCouponGenerated) {
-            updateCouponDisplay();
+            updateCouponDisplay(); // Atualiza o cupom automaticamente
         }
     }
 }
