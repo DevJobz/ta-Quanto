@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TaQuanto</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+    </head>
+    <body>
+        <header>
+            <h1>TaQuanto</h1>
+            <p>Encontre os melhores preços em supermercados locais!</p>
+            <button id="themeToggle" class="theme-toggle">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </header>
+
+        <main>
+            <section class="ad-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide">
+                        <img
+                            src="https://img.freepik.com/fotos-gratis/retrato-de-mulher-idosa-no-supermercado_329181-14929.jpg?t=st=1740167045~exp=1740170645~hmac=38a3e06e56f314a1f39242f2cd441d748f79e6d94da889ad14ed25e62f23b454&w=1060"
+                            alt="Mulher idosa no supermercado"
+                        />
+                        <img
+                            src="https://img.freepik.com/fotos-gratis/carrinhos-de-compras-com-deliciosos-legumes_23-2148290751.jpg?t=st=1740167185~exp=1740170785~hmac=b2fe683150d9be4a2c1852482ac381c30675872e617b45ae4e3ad6e61b21445b&w=1060"
+                            alt="Carrinhos de compras com legumes"
+                        />
+                        <img
+                            src="https://img.cdndsgni.com/preview/10028327.jpg"
+                            alt="Promoção de supermercado"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section class="search">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Digite o nome do produto..."
+                    oninput="searchProduct()"
+                />
+            </section>
+
+            <section class="categories">
+                <h2>Categorias de Produtos</h2>
+                <div class="category-buttons">
+                    <button onclick="displaySubCategories('Grãos')">
+                        Grãos
+                    </button>
+                    <button onclick="displaySubCategories('Óleos e Gorduras')">
+                        Óleos e Gorduras
+                    </button>
+                    <button
+                        onclick="displaySubCategories('Verduras e Legumes')"
+                    >
+                        Verduras e Legumes
+                    </button>
+                    <button onclick="displaySubCategories('Laticínios')">
+                        Laticínios
+                    </button>
+                    <button onclick="filterProducts('Todos')">Todos</button>
+                </div>
+            </section>
+
+            <section class="results">
+                <h2>Resultados</h2>
+                <div class="filters">
+                    <button onclick="sortProducts('priceAsc')">
+                        Menor Preço
+                    </button>
+                    <button onclick="sortProducts('priceDesc')">
+                        Maior Preço
+                    </button>
+                    <button onclick="sortProducts('nameAsc')">A-Z</button>
+                    <button onclick="sortProducts('nameDesc')">Z-A</button>
+                </div>
+                <div id="resultsContainer">
+                    <!-- Resultados serão preenchidos via JavaScript -->
+                </div>
+            </section>
+
+            <section class="comparison hidden">
+                <h2>Carrinho e Comparação de Preços</h2>
+                <div class="undo-redo-buttons">
+                    <button onclick="undoAction()" title="Desfazer">↩️</button>
+                    <button onclick="clearCart()" title="Zerar Carrinho">
+                        🗑️
+                    </button>
+                    <button onclick="redoAction()" title="Refazer">↪️</button>
+                </div>
+                <div id="comparisonResults">
+                    <!-- Carrinho e comparação de preços serão exibidos aqui -->
+                </div>
+                <button onclick="generateCoupon()" class="generate-coupon">
+                    Gerar Cupom
+                </button>
+                <div id="couponDisplay" class="coupon-display"></div>
+            </section>
+        </main>
+
+        <!-- Modal de Feedback -->
+        <div id="feedbackModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Enviar Feedback</h2>
+                <form id="feedbackForm">
+                    <label for="name">Nome:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Seu nome"
+                        required
+                    />
+
+                    <label for="email">E-mail:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Seu e-mail"
+                        required
+                    />
+
+                    <label for="feedbackType">Tipo de Feedback:</label>
+                    <select id="feedbackType" name="feedbackType" required>
+                        <option value="sugestao">Sugestão</option>
+                        <option value="problema">Problema</option>
+                    </select>
+
+                    <label for="message">Mensagem:</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Descreva seu feedback ou problema"
+                        required
+                    ></textarea>
+
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Botão de Feedback no Header -->
+        <button id="feedbackButton" class="feedback-button">Feedback</button>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

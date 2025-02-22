@@ -1,0 +1,988 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+header {
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.theme-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Estilos para o carrossel */
+.ad-carousel {
+    margin: 0 10px 20px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Ajustes para mobile */
+@media (max-width: 767px) {
+    .carousel-slide img {
+        height: 150px;
+    }
+}
+
+/* Ajustes para tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .carousel-slide img {
+        height: 250px;
+    }
+}
+
+/* Ajustes para desktop */
+@media (min-width: 1024px) {
+    .carousel-slide img {
+        height: 350px;
+    }
+}
+
+.search {
+    padding: 0 10px;
+}
+
+.search input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search input:focus {
+    border-color: #2196f3;
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+}
+
+.categories {
+    padding: 0 10px;
+}
+
+.categories .category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.categories button {
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1 1 calc(50% - 10px);
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.categories button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Cores para as categorias */
+.categories button[onclick*='Grãos'] {
+    background-color: #4caf50; /* Verde */
+}
+
+.categories button[onclick*='Óleos e Gorduras'] {
+    background-color: #ff9800; /* Laranja */
+}
+
+.categories button[onclick*='Verduras e Legumes'] {
+    background-color: #f44336; /* Vermelho */
+}
+
+.categories button[onclick*='Laticínios'] {
+    background-color: #2196f3; /* Azul */
+}
+
+.categories button[onclick*='Todos'] {
+    background-color: #9c27b0; /* Roxo */
+}
+
+/* Cores para as subcategorias */
+.categories button[onclick*='Arroz'] {
+    background-color: #8bc34a; /* Verde claro */
+    color: white;
+}
+
+.categories button[onclick*='Feijão'] {
+    background-color: #cddc39; /* Amarelo claro */
+    color: black;
+}
+
+.categories button[onclick*='Óleo'] {
+    background-color: #ffc107; /* Amarelo */
+    color: black;
+}
+
+.categories button[onclick*='Tomate'] {
+    background-color: #e91e63; /* Rosa */
+    color: white;
+}
+
+.categories button[onclick*='Leite'] {
+    background-color: #00bcd4; /* Ciano */
+    color: white;
+}
+
+/* Botão Voltar */
+.categories button[onclick*='displayMainCategories'] {
+    background-color: #9c27b0; /* Roxo */
+    color: white;
+}
+
+.results {
+    padding: 0 10px;
+}
+
+.results h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.filters button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filters button:hover {
+    background-color: #1976d2;
+    transform: scale(1.05);
+}
+
+#resultsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.category-section {
+    margin-bottom: 15px;
+}
+
+.category-section h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Cores para os títulos das categorias nos resultados */
+.category-section h3[data-category='Grãos'] {
+    color: #4caf50; /* Verde */
+}
+
+.category-section h3[data-category='Óleos e Gorduras'] {
+    color: #ff9800; /* Laranja */
+}
+
+.category-section h3[data-category='Verduras e Legumes'] {
+    color: #f44336; /* Vermelho */
+}
+
+.category-section h3[data-category='Laticínios'] {
+    color: #2196f3; /* Azul */
+}
+
+.items-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.item-card {
+    background-color: white;
+    border: none;
+    padding: 10px;
+    min-width: 150px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .item-card {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.item-card:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.item-card img {
+    width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+body.dark-mode .item-card img {
+    background-color: white; /* Fundo branco apenas no modo dark */
+}
+
+.item-card h4 {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+body.dark-mode .item-card h4 {
+    color: #ffffff;
+}
+
+.item-card p {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #666;
+}
+
+body.dark-mode .item-card p {
+    color: #ccc;
+}
+
+.item-card button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: background-color 0.2s ease, width 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.item-card button.added {
+    background-color: #4caf50;
+    padding: 8px 12px;
+    font-size: 12px;
+    width: 60px;
+    margin: 0 auto;
+}
+
+.item-card button.added::after {
+    content: '✓';
+    font-size: 14px;
+}
+
+.item-card button.added span {
+    display: none;
+}
+
+.item-card button:hover {
+    background-color: #1976d2;
+}
+
+/* Estilos para a seção de comparação (Carrinho) */
+.comparison {
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(0);
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+body.dark-mode .comparison {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.comparison.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+}
+
+.comparison table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .comparison table {
+    background-color: #333;
+}
+
+.comparison th,
+.comparison td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+}
+
+.comparison th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+body.dark-mode .comparison th {
+    background-color: #444;
+    color: #ffffff;
+}
+
+.comparison td {
+    background-color: #f9f9f9;
+}
+
+body.dark-mode .comparison td {
+    background-color: #444;
+    color: #ffffff;
+}
+
+/* Cores dos supermercados no modo light */
+.comparison th[data-market='Fernandes'],
+.comparison td[data-market='Fernandes'] {
+    background-color: #4caf50; /* Verde */
+    color: white;
+}
+
+.comparison th[data-market='Burgão'],
+.comparison td[data-market='Burgão'] {
+    background-color: #ff9800; /* Laranja */
+    color: white;
+}
+
+.comparison th[data-market='Ana Mara'],
+.comparison td[data-market='Ana Mara'] {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+}
+
+.comparison th[data-market='Cooperbarra'],
+.comparison td[data-market='Cooperbarra'] {
+    background-color: #2196f3; /* Azul */
+    color: white;
+}
+
+.comparison th[data-market='Jaú Serve'],
+.comparison td[data-market='Jaú Serve'] {
+    background-color: #9c27b0; /* Roxo */
+    color: white;
+}
+
+.comparison th[data-market='Veríssimo'],
+.comparison td[data-market='Veríssimo'] {
+    background-color: #00bcd4; /* Ciano */
+    color: white;
+}
+
+/* Cores dos supermercados no modo dark */
+body.dark-mode .comparison th[data-market='Fernandes'],
+body.dark-mode .comparison td[data-market='Fernandes'] {
+    background-color: #4caf50; /* Verde */
+    color: white;
+}
+
+body.dark-mode .comparison th[data-market='Burgão'],
+body.dark-mode .comparison td[data-market='Burgão'] {
+    background-color: #ff9800; /* Laranja */
+    color: white;
+}
+
+body.dark-mode .comparison th[data-market='Ana Mara'],
+body.dark-mode .comparison td[data-market='Ana Mara'] {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+}
+
+body.dark-mode .comparison th[data-market='Cooperbarra'],
+body.dark-mode .comparison td[data-market='Cooperbarra'] {
+    background-color: #2196f3; /* Azul */
+    color: white;
+}
+
+body.dark-mode .comparison th[data-market='Jaú Serve'],
+body.dark-mode .comparison td[data-market='Jaú Serve'] {
+    background-color: #9c27b0; /* Roxo */
+    color: white;
+}
+
+body.dark-mode .comparison th[data-market='Veríssimo'],
+body.dark-mode .comparison td[data-market='Veríssimo'] {
+    background-color: #00bcd4; /* Ciano */
+    color: white;
+}
+
+/* Cores dos supermercados no cupom (modo light e dark) */
+.coupon-display td[data-market='Fernandes'] {
+    background-color: #4caf50; /* Verde */
+    color: white !important;
+}
+
+.coupon-display td[data-market='Burgão'] {
+    background-color: #ff9800; /* Laranja */
+    color: white !important;
+}
+
+.coupon-display td[data-market='Ana Mara'] {
+    background-color: #f44336; /* Vermelho */
+    color: white !important;
+}
+
+.coupon-display td[data-market='Cooperbarra'] {
+    background-color: #2196f3; /* Azul */
+    color: white !important;
+}
+
+.coupon-display td[data-market='Jaú Serve'] {
+    background-color: #9c27b0; /* Roxo */
+    color: white !important;
+}
+
+.coupon-display td[data-market='Veríssimo'] {
+    background-color: #00bcd4; /* Ciano */
+    color: white !important;
+}
+
+/* Modo dark para o cupom */
+body.dark-mode .coupon-display td[data-market='Fernandes'] {
+    background-color: #4caf50; /* Verde */
+    color: white !important;
+}
+
+body.dark-mode .coupon-display td[data-market='Burgão'] {
+    background-color: #ff9800; /* Laranja */
+    color: white !important;
+}
+
+body.dark-mode .coupon-display td[data-market='Ana Mara'] {
+    background-color: #f44336; /* Vermelho */
+    color: white !important;
+}
+
+body.dark-mode .coupon-display td[data-market='Cooperbarra'] {
+    background-color: #2196f3; /* Azul */
+    color: white !important;
+}
+
+body.dark-mode .coupon-display td[data-market='Jaú Serve'] {
+    background-color: #9c27b0; /* Roxo */
+    color: white !important;
+}
+
+body.dark-mode .coupon-display td[data-market='Veríssimo'] {
+    background-color: #00bcd4; /* Ciano */
+    color: white !important;
+}
+
+.market-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-input {
+    width: 40px;
+    max-width: 60px;
+    transition: width 0.2s ease-in-out;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+}
+
+.quantity-input:focus {
+    width: auto;
+}
+
+.remove-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.remove-btn:hover {
+    background-color: #d32f2f;
+}
+
+.generate-coupon {
+    background-color: #2196f3;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.generate-coupon:hover {
+    background-color: #1976d2;
+}
+
+/* Estilos para a seção de cupom */
+.coupon-display {
+    padding: 10px;
+    margin: 10px;
+    background-color: transparent;
+    font-size: 14px;
+    text-align: left;
+    color: #333;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+body.dark-mode .coupon-display {
+    color: #ffffff;
+}
+
+.coupon-display h3 {
+    margin-top: 0;
+    color: #4caf50;
+    font-size: 16px;
+}
+
+body.dark-mode .coupon-display h3 {
+    color: #4caf50;
+}
+
+.coupon-display table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    overflow-x: auto;
+    display: block;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .coupon-display table {
+    background-color: #333;
+}
+
+.coupon-display th,
+.coupon-display td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+}
+
+.coupon-display th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+body.dark-mode .coupon-display th {
+    background-color: #444;
+    color: #ffffff;
+}
+
+.coupon-display td {
+    background-color: #f9f9f9;
+}
+
+body.dark-mode .coupon-display td {
+    background-color: #444;
+    color: #ffffff;
+}
+
+/* Cores diferentes para cada supermercado */
+.coupon-display td[data-market='Fernandes'] {
+    color: white !important; /* Força o texto a ser branco */
+}
+
+.coupon-display td[data-market='Burgão'] {
+    color: white !important; /* Força o texto a ser branco */
+}
+
+.coupon-display td[data-market='Ana Mara'] {
+    color: white !important; /* Força o texto a ser branco */
+}
+
+.coupon-display td[data-market='Cooperbarra'] {
+    color: white !important; /* Força o texto a ser branco */
+}
+
+.coupon-display td[data-market='Jaú Serve'] {
+    color: white !important; /* Força o texto a ser branco */
+}
+
+.coupon-display td[data-market='Veríssimo'] {
+    color: white !important; /* Força o texto a ser branco */
+}
+
+.download-coupon {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.download-coupon:hover {
+    background-color: #45a049;
+}
+
+/* Botões de Desfazer, Zerar Carrinho e Refazer */
+.undo-redo-buttons {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.undo-redo-buttons button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.undo-redo-buttons button:hover {
+    background-color: #1976d2;
+}
+
+/* Estilos do Modal de Feedback */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal.open {
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 20px; /* Bordas mais arredondadas */
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #2196f3; /* Borda azul no tema claro */
+    transform: translateY(-50px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal.open .modal-content {
+    transform: translateY(0);
+}
+
+body.dark-mode .modal-content {
+    background-color: #333;
+    color: #fff;
+    border-color: #fff; /* Borda branca no tema escuro */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #2196f3; /* Azul no tema claro */
+}
+
+body.dark-mode .modal-content h2 {
+    color: #fff; /* Branco no tema escuro */
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #2196f3; /* Azul no tema claro */
+}
+
+body.dark-mode .modal-content label {
+    color: #fff; /* Branco no tema escuro */
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2196f3; /* Borda azul no tema claro */
+    border-radius: 10px; /* Bordas mais arredondadas */
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #fff; /* Fundo branco no tema claro */
+    color: #333; /* Texto escuro no tema claro */
+}
+
+body.dark-mode .modal-content input,
+body.dark-mode .modal-content select,
+body.dark-mode .modal-content textarea {
+    background-color: #444; /* Fundo escuro no tema escuro */
+    color: #fff; /* Texto branco no tema escuro */
+    border-color: #fff; /* Borda branca no tema escuro */
+}
+
+.modal-content textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.modal-content button {
+    background-color: #2196f3; /* Azul no tema claro */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px; /* Bordas mais arredondadas */
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .modal-content button {
+    background-color: #fff; /* Branco no tema escuro */
+    color: #2196f3; /* Azul no tema escuro */
+}
+
+.modal-content button:hover {
+    background-color: #1976d2; /* Azul mais escuro no tema claro */
+}
+
+body.dark-mode .modal-content button:hover {
+    background-color: #ddd; /* Cinza claro no tema escuro */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+body.dark-mode .close:hover,
+body.dark-mode .close:focus {
+    color: #fff;
+}
+
+/* Botão de Feedback no Header */
+.feedback-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #2196f3; /* Azul no tema claro */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px; /* Bordas mais arredondadas */
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+body.dark-mode .feedback-button {
+    background-color: #fff; /* Branco no tema escuro */
+    color: #2196f3; /* Azul no tema escuro */
+}
+
+.feedback-button:hover {
+    background-color: #1976d2; /* Azul mais escuro no tema claro */
+    animation: none; /* Para a animação ao passar o mouse */
+}
+
+body.dark-mode .feedback-button:hover {
+    background-color: #ddd; /* Cinza claro no tema escuro */
+}
+
+/* Animação de pulso para o botão de feedback */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animação de bounce ao adicionar item ao carrinho */
+@keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.bounce {
+    animation: bounce 0.5s;
+}
+
+/* Animação de fade ao remover item do carrinho */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s;
+}
+
+@media (min-width: 768px) {
+    .categories button {
+        flex: 1 1 calc(33.33% - 10px);
+    }
+
+    .item-card {
+        min-width: 200px;
+    }
+
+    .item-card img {
+        max-height: 150px;
+    }
+
+    .comparison table {
+        display: table;
+    }
+}
+
+@media (min-width: 1024px) {
+    .categories button {
+        flex: 1 1 calc(20% - 10px);
+    }
+
+    .item-card {
+        min-width: 180px;
+    }
+
+    .item-card img {
+        max-height: 120px;
+    }
+}
