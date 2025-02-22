@@ -477,28 +477,21 @@ function removeFromCart(productId, event) {
 
     const scrollPosition = window.scrollY;
 
-    // Encontra o item no carrinho
     const itemIndex = cartItems.findIndex((item) => item.id === productId);
     if (itemIndex !== -1) {
-        // Remove o item do carrinho
         cartItems.splice(itemIndex, 1);
     }
 
-    // Salva o estado atual no histórico
     saveHistory();
 
-    // Atualiza o carrinho e a comparação
     updateCartAndComparison();
 
-    // Restaura a posição de rolagem
     window.scrollTo(0, scrollPosition);
 
-    // Atualiza o cupom, se necessário
     if (isCouponGenerated) {
         updateCouponDisplay();
     }
 
-    // Remove a classe 'added' do botão de adicionar
     const addButton = document.querySelector(
         `.item-card button[onclick="addToCart(${productId})"]`
     );
@@ -840,3 +833,15 @@ document.getElementById('feedbackForm').addEventListener('submit', (event) => {
 
     alert('Obrigado pelo seu feedback!');
 });
+
+function editQuantity(productId, newQuantity) {
+    const item = cartItems.find((item) => item.id === parseInt(productId, 10));
+    if (item) {
+        item.quantity = parseInt(newQuantity, 10);
+        saveHistory();
+        updateCartAndComparison();
+        if (isCouponGenerated) {
+            updateCouponDisplay();
+        }
+    }
+}
