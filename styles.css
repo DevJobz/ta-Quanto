@@ -1026,3 +1026,210 @@ body.dark-mode .feedback-button:hover {
         max-height: 120px;
     }
 }
+
+/* Estilos específicos para a página de login */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+}
+
+.login-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #45a049;
+}
+
+.social-login {
+    margin-top: 1rem;
+}
+
+.social-login button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.social-login .google-login {
+    background-color: #db4437;
+    color: white;
+}
+
+.social-login .facebook-login {
+    background-color: #4267b2;
+    color: white;
+}
+
+.social-login .apple-login {
+    background-color: #000;
+    color: white;
+}
+
+.social-login button:hover {
+    opacity: 0.9;
+}
+
+.login-container p {
+    margin-top: 1rem;
+    color: #666;
+}
+
+.login-container a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos gerais do registro*/
+body.register-page {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.register-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.register-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-container input,
+.register-container select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.register-container input[type='checkbox'] {
+    margin-right: 10px;
+}
+
+.register-container label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.register-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-container button[type='submit'] {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.register-container button[type='submit']:hover {
+    background-color: #218838;
+}
+
+.register-container button[type='button'] {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.register-container button[type='button']:hover {
+    background-color: #5a6268;
+}
+
+.register-container .back-button {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.register-container .back-button:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 15px;
+    }
+
+    .register-container h2 {
+        font-size: 20px;
+    }
+
+    .register-container input,
+    .register-container select,
+    .register-container button {
+        font-size: 14px;
+    }
+}

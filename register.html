@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Registro - TaQuanto</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body class="register-page">
+        <div class="register-container">
+            <button
+                class="back-button"
+                onclick="window.location.href='login.html'"
+            >
+                ← Voltar
+            </button>
+            <h2>Registro</h2>
+            <form id="registerForm">
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Nome Completo"
+                    required
+                />
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Email"
+                    required
+                />
+                <input type="date" id="birthDate" required />
+                <select id="state" required>
+                    <option value="">Selecione o Estado</option>
+                    <!-- Estados serão preenchidos via JavaScript -->
+                </select>
+                <select id="city" required>
+                    <option value="">Selecione a Cidade</option>
+                    <!-- Cidades serão preenchidas via JavaScript -->
+                </select>
+                <input type="text" id="cep" placeholder="CEP" required />
+                <input type="text" id="cpf" placeholder="CPF" required />
+                <select id="gender" required>
+                    <option value="">Selecione o Sexo</option>
+                    <option value="male">Masculino</option>
+                    <option value="female">Feminino</option>
+                    <option value="other">Outro</option>
+                </select>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Criar Senha"
+                    required
+                />
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Repetir Senha"
+                    required
+                />
+                <label>
+                    <input type="checkbox" id="terms" required /> Aceito os
+                    termos e condições
+                </label>
+                <button type="submit">Cadastrar</button>
+                <button
+                    type="button"
+                    onclick="window.location.href='login.html'"
+                >
+                    Voltar para Login
+                </button>
+            </form>
+        </div>
+        <script src="register.js"></script>
+    </body>
+</html>

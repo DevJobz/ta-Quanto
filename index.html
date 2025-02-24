@@ -19,6 +19,17 @@
             />
         </div>
 
+        <button id="logoutButton">Logout</button>
+
+        <script>
+            document
+                .getElementById('logoutButton')
+                .addEventListener('click', function () {
+                    localStorage.removeItem('isLoggedIn');
+                    window.location.href = 'login.html';
+                });
+        </script>
+
         <header>
             <h1>TaQuanto</h1>
             <p>Encontre os melhores preços em supermercados locais!</p>
@@ -161,5 +172,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
         <script src="script.js"></script>
+
+        <!-- Script para redirecionar para a página de login se o usuário não estiver autenticado -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+                if (!isLoggedIn) {
+                    window.location.href = 'login.html';
+                }
+            });
+        </script>
     </body>
 </html>
