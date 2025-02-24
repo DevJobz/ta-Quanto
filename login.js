@@ -1,6 +1,3 @@
-let loginAttempts = {};
-let lastAlertedEmail = '';
-
 function showMessage(message, type) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}`;
@@ -12,12 +9,23 @@ function showMessage(message, type) {
     }, 3000);
 }
 
+let loginAttempts = {};
+let lastAlertedEmail = '';
+
+console.log('Script login.js carregado!');
+
 document
     .getElementById('loginForm')
     .addEventListener('submit', function (event) {
-        event.preventDefault();
+        console.log('Formulário submetido!');
+        event.preventDefault(); // Impede o envio tradicional do formulário
+        console.log('PreventDefault executado!');
+
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
+
+        console.log('Email:', email);
+        console.log('Senha:', password);
 
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const user = users.find(
@@ -25,12 +33,28 @@ document
         );
 
         if (user) {
-            localStorage.setItem('isLoggedIn', 'true');
-            showMessage('Login realizado com sucesso!', 'success');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
+            console.log('Usuário encontrado:', user);
+            if (user.isAdmin) {
+                console.log('Redirecionando para admin.html');
+                window.location.href = 'admin.html';
+            } else if (user.authorized) {
+                console.log(
+                    'Usuário autorizado, redirecionando para index.html'
+                );
+                localStorage.setItem('isLoggedIn', 'true'); // Salva o status de login
+                showMessage('Login realizado com sucesso!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                console.log('Usuário não autorizado');
+                showMessage(
+                    'Você não está autorizado a acessar a página principal.',
+                    'error'
+                );
+            }
         } else {
+            console.log('Usuário não encontrado');
             const emailExists = users.some((u) => u.email === email);
 
             if (!emailExists && email !== lastAlertedEmail) {
@@ -54,16 +78,4 @@ document
         }
     });
 
-document.querySelector('.google-login').addEventListener('click', function () {
-    showMessage('Login com Google simulado.', 'success');
-});
-
-document
-    .querySelector('.facebook-login')
-    .addEventListener('click', function () {
-        showMessage('Login com Facebook simulado.', 'success');
-    });
-
-document.querySelector('.apple-login').addEventListener('click', function () {
-    showMessage('Login com Apple simulado.', 'success');
-});
+console.log('Evento submit adicionado ao formulário!');

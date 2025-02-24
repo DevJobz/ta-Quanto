@@ -11,6 +11,7 @@
             <a href="login.html" class="back-button">← Voltar</a>
             <h2>Registro</h2>
             <form id="registerForm">
+                <!-- Nome Completo -->
                 <input
                     type="text"
                     id="fullName"
@@ -20,6 +21,8 @@
                     required
                 />
                 <div class="error-message" id="nameError"></div>
+
+                <!-- Email -->
                 <input
                     type="email"
                     id="registerEmail"
@@ -27,15 +30,26 @@
                     required
                 />
                 <div class="error-message" id="emailError"></div>
+
+                <!-- Data de Nascimento -->
                 <input type="date" id="birthDate" required />
+                <div class="error-message" id="birthDateError"></div>
+
+                <!-- Estado -->
                 <select id="state" required>
                     <option value="">Selecione o Estado</option>
                     <!-- Estados serão preenchidos via JavaScript -->
                 </select>
+                <div class="error-message" id="stateError"></div>
+
+                <!-- Cidade -->
                 <select id="city" required>
                     <option value="">Selecione a Cidade</option>
                     <!-- Cidades serão preenchidas via JavaScript -->
                 </select>
+                <div class="error-message" id="cityError"></div>
+
+                <!-- CEP -->
                 <input
                     type="text"
                     id="cep"
@@ -44,6 +58,8 @@
                     required
                 />
                 <div class="error-message" id="cepError"></div>
+
+                <!-- CPF -->
                 <input
                     type="text"
                     id="cpf"
@@ -52,6 +68,8 @@
                     required
                 />
                 <div class="error-message" id="cpfError"></div>
+
+                <!-- Telefone Celular -->
                 <input
                     type="text"
                     id="phone"
@@ -59,18 +77,25 @@
                     required
                 />
                 <div class="error-message" id="phoneError"></div>
+
+                <!-- Sexo -->
                 <select id="gender" required>
                     <option value="">Selecione o Sexo</option>
                     <option value="male">Masculino</option>
                     <option value="female">Feminino</option>
                     <option value="other">Outro</option>
                 </select>
+                <div class="error-message" id="genderError"></div>
+
+                <!-- Senha -->
                 <input
                     type="password"
                     id="registerPassword"
                     placeholder="Criar Senha"
                     required
                 />
+
+                <!-- Confirmar Senha -->
                 <input
                     type="password"
                     id="confirmPassword"
@@ -78,10 +103,14 @@
                     required
                 />
                 <div class="error-message" id="passwordError"></div>
+
+                <!-- Termos e Condições -->
                 <label class="terms-label">
                     <input type="checkbox" id="terms" required /> Aceito os
                     termos e condições
                 </label>
+
+                <!-- Botão de Cadastro -->
                 <button type="submit">Cadastrar</button>
             </form>
         </div>

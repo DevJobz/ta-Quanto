@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Administração - TaQuanto</title>
+        <link rel="stylesheet" href="styles.css" />
+        <style>
+            /* Estilos para a tabela de administração */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th,
+            td {
+                padding: 10px;
+                border: 1px solid #ccc;
+                text-align: left;
+            }
+            th {
+                background-color: #f4f4f4;
+            }
+            .actions {
+                display: flex;
+                gap: 10px;
+            }
+            .actions button {
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .actions button.delete {
+                background-color: #ff4444;
+                color: white;
+            }
+            .actions button.toggle-auth {
+                background-color: #28a745;
+                color: white;
+            }
+        </style>
+    </head>
+    <body class="admin-page">
+        <div class="admin-container">
+            <h2>Administração de Usuários</h2>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>Email</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Data de Nascimento</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>CEP</th>
+                        <th>Sexo</th>
+                        <th>Autorizado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Os dados dos usuários serão preenchidos via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <script src="admin.js"></script>
+    </body>
+</html>

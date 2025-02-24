@@ -17,10 +17,12 @@ function validateName() {
         nameError.textContent = 'O nome deve ter no mínimo 10 caracteres.';
         nameError.style.display = 'block';
         nameInput.style.borderColor = '#ff4444';
+        return false;
     } else {
         nameError.style.display = 'none';
         nameInput.style.borderColor =
             nameInput.value.trim() === '' ? '#ccc' : '#00c851';
+        return true;
     }
 }
 
@@ -34,6 +36,7 @@ function validateEmail() {
         emailError.textContent = 'Formato de e-mail inválido.';
         emailError.style.display = 'block';
         emailInput.style.borderColor = '#ff4444';
+        return false;
     } else {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const userExists = users.some((u) => u.email === emailInput.value);
@@ -41,10 +44,12 @@ function validateEmail() {
             emailError.textContent = 'Este e-mail já está cadastrado.';
             emailError.style.display = 'block';
             emailInput.style.borderColor = '#ff4444';
+            return false;
         } else {
             emailError.style.display = 'none';
             emailInput.style.borderColor =
                 emailInput.value.trim() === '' ? '#ccc' : '#00c851';
+            return true;
         }
     }
 }
@@ -58,92 +63,45 @@ function validateBirthDate() {
     const minDate = new Date('1900-01-01');
 
     if (selectedDate < minDate || selectedDate > currentDate) {
-        birthDateError.textContent =
-            'Data de nascimento inválida. Use uma data entre 1900 e o ano atual.';
-        birthDateError.style.display = 'block';
+        if (birthDateError) {
+            birthDateError.textContent =
+                'Data de nascimento inválida. Use uma data entre 1900 e o ano atual.';
+            birthDateError.style.display = 'block';
+        }
         birthDateInput.style.borderColor = '#ff4444';
+        return false;
     } else {
-        birthDateError.style.display = 'none';
+        if (birthDateError) {
+            birthDateError.style.display = 'none';
+        }
         birthDateInput.style.borderColor =
             birthDateInput.value.trim() === '' ? '#ccc' : '#00c851';
+        return true;
     }
 }
 
 // Função para validar campos de seleção
 function validateSelectFields() {
+    let isValid = true;
     const selectFields = document.querySelectorAll('select');
     selectFields.forEach((select) => {
         const errorElement = document.getElementById(`${select.id}Error`);
         if (select.value === '') {
-            errorElement.textContent = 'Por favor, selecione uma opção.';
-            errorElement.style.display = 'block';
+            if (errorElement) {
+                errorElement.textContent = 'Por favor, selecione uma opção.';
+                errorElement.style.display = 'block';
+            }
             select.style.borderColor = '#ff4444';
+            isValid = false;
         } else {
-            errorElement.style.display = 'none';
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
             select.style.borderColor = '#00c851';
         }
     });
+    return isValid;
 }
-
-// Adiciona evento de validação ao sair dos campos de seleção
-document.querySelectorAll('select').forEach((select) => {
-    select.addEventListener('blur', validateSelectFields);
-});
-
-// Adiciona evento de validação ao sair do campo de data
-document
-    .getElementById('birthDate')
-    .addEventListener('blur', validateBirthDate);
-
-// Validação do formulário ao enviar
-document
-    .getElementById('registerForm')
-    .addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Valida todos os campos
-        validateName();
-        validateEmail();
-        validateCPF();
-        validateCEP();
-        validatePhone();
-        validatePassword();
-        validateBirthDate();
-        validateSelectFields();
-
-        // Verifica se há erros
-        const errors = document.querySelectorAll('.error-message');
-        let hasErrors = false;
-        errors.forEach((error) => {
-            if (error.style.display === 'block') {
-                hasErrors = true;
-            }
-        });
-
-        // Se não houver erros, envia o formulário
-        if (!hasErrors) {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const newUser = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('registerEmail').value,
-                cpf: document.getElementById('cpf').value,
-                phone: document.getElementById('phone').value,
-                birthDate: document.getElementById('birthDate').value,
-                state: document.getElementById('state').value,
-                city: document.getElementById('city').value,
-                cep: document.getElementById('cep').value,
-                gender: document.getElementById('gender').value,
-                password: document.getElementById('registerPassword').value,
-            };
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-
-            showMessage('Cadastro realizado com sucesso!', 'success');
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 1500);
-        }
-    });
 
 // Função para validar o CPF
 function validateCPF() {
@@ -155,6 +113,7 @@ function validateCPF() {
         cpfError.textContent = 'CPF inválido. Use o formato 000.000.000-00.';
         cpfError.style.display = 'block';
         cpfInput.style.borderColor = '#ff4444';
+        return false;
     } else {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const userExists = users.some((u) => u.cpf === cpfInput.value);
@@ -162,10 +121,12 @@ function validateCPF() {
             cpfError.textContent = 'Este CPF já está cadastrado.';
             cpfError.style.display = 'block';
             cpfInput.style.borderColor = '#ff4444';
+            return false;
         } else {
             cpfError.style.display = 'none';
             cpfInput.style.borderColor =
                 cpfInput.value.trim() === '' ? '#ccc' : '#00c851';
+            return true;
         }
     }
 }
@@ -180,10 +141,12 @@ function validateCEP() {
         cepError.textContent = 'CEP inválido. Use o formato 00.000-000.';
         cepError.style.display = 'block';
         cepInput.style.borderColor = '#ff4444';
+        return false;
     } else {
         cepError.style.display = 'none';
         cepInput.style.borderColor =
             cepInput.value.trim() === '' ? '#ccc' : '#00c851';
+        return true;
     }
 }
 
@@ -198,10 +161,22 @@ function validatePhone() {
             'Telefone inválido. Use o formato (00) 00000-0000 ou (00) 0000-0000.';
         phoneError.style.display = 'block';
         phoneInput.style.borderColor = '#ff4444';
+        return false;
     } else {
-        phoneError.style.display = 'none';
-        phoneInput.style.borderColor =
-            phoneInput.value.trim() === '' ? '#ccc' : '#00c851';
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userExists = users.some((u) => u.phone === phoneInput.value);
+        if (userExists) {
+            phoneError.textContent =
+                'Este número de celular já está cadastrado.';
+            phoneError.style.display = 'block';
+            phoneInput.style.borderColor = '#ff4444';
+            return false;
+        } else {
+            phoneError.style.display = 'none';
+            phoneInput.style.borderColor =
+                phoneInput.value.trim() === '' ? '#ccc' : '#00c851';
+            return true;
+        }
     }
 }
 
@@ -218,10 +193,12 @@ function validatePassword() {
         passwordError.textContent = 'As senhas não coincidem.';
         passwordError.style.display = 'block';
         confirmPasswordInput.style.borderColor = '#ff4444';
+        return false;
     } else {
         passwordError.style.display = 'none';
         confirmPasswordInput.style.borderColor =
             confirmPasswordInput.value.trim() === '' ? '#ccc' : '#00c851';
+        return true;
     }
 }
 
@@ -268,76 +245,58 @@ document.getElementById('cep').addEventListener('input', function (e) {
     e.target.value = value;
 });
 
-// Validação do formulário
+// Validação do formulário ao enviar
 document
     .getElementById('registerForm')
     .addEventListener('submit', function (e) {
         e.preventDefault();
 
-        validateName();
-        validateEmail();
-        validateCPF();
-        validateCEP();
-        validatePhone();
-        validatePassword();
+        // Valida todos os campos
+        const isNameValid = validateName();
+        const isEmailValid = validateEmail();
+        const isCPFValid = validateCPF();
+        const isCEPValid = validateCEP();
+        const isPhoneValid = validatePhone();
+        const isPasswordValid = validatePassword();
+        const isBirthDateValid = validateBirthDate();
+        const isSelectFieldsValid = validateSelectFields();
 
-        const fullName = document.getElementById('fullName').value;
-        const cpf = document.getElementById('cpf').value;
-        const phone = document.getElementById('phone').value;
-        const cep = document.getElementById('cep').value;
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword =
-            document.getElementById('confirmPassword').value;
-        const email = document.getElementById('registerEmail').value;
+        // Verifica se todos os campos são válidos
+        if (
+            isNameValid &&
+            isEmailValid &&
+            isCPFValid &&
+            isCEPValid &&
+            isPhoneValid &&
+            isPasswordValid &&
+            isBirthDateValid &&
+            isSelectFieldsValid
+        ) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const newUser = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('registerEmail').value,
+                cpf: document.getElementById('cpf').value,
+                phone: document.getElementById('phone').value,
+                birthDate: document.getElementById('birthDate').value,
+                state: document.getElementById('state').value,
+                city: document.getElementById('city').value,
+                cep: document.getElementById('cep').value,
+                gender: document.getElementById('gender').value,
+                password: document.getElementById('registerPassword').value,
+                authorized: false, // Novo campo: por padrão, o usuário não está autorizado
+            };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
 
-        // Verificação de senha
-        if (password !== confirmPassword) {
-            showMessage('As senhas não coincidem.', 'error');
-            return;
+            showMessage('Cadastro realizado com sucesso!', 'success');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        } else {
+            showMessage('Por favor, corrija os erros no formulário.', 'error');
         }
-
-        // Verificação de e-mail existente
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const userExists = users.some((u) => u.email === email);
-        if (userExists) {
-            showMessage('Este e-mail já está cadastrado.', 'error');
-            return;
-        }
-
-        // Verificação de CPF existente
-        const cpfExists = users.some((u) => u.cpf === cpf);
-        if (cpfExists) {
-            showMessage('Este CPF já está cadastrado.', 'error');
-            return;
-        }
-
-        // Cadastro do usuário
-        const newUser = {
-            fullName,
-            email,
-            cpf,
-            phone,
-            birthDate: document.getElementById('birthDate').value,
-            state: document.getElementById('state').value,
-            city: document.getElementById('city').value,
-            cep,
-            gender: document.getElementById('gender').value,
-            password,
-        };
-
-        users.push(newUser);
-        localStorage.setItem('users', JSON.stringify(users));
-
-        showMessage('Cadastro realizado com sucesso!', 'success');
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 1500);
     });
-
-// Adiciona evento de validação ao sair do campo de confirmação de senha
-document
-    .getElementById('confirmPassword')
-    .addEventListener('blur', validatePassword);
 
 // Preenchimento dinâmico de estados e cidades
 const states = {
