@@ -787,7 +787,17 @@ function updateAddButtons() {
     });
 }
 
+// Inicialização da página
 window.onload = function () {
+    // Aguarda o término da animação (2 segundos)
+    setTimeout(() => {
+        const splash = document.getElementById('splash');
+        splash.style.display = 'none'; // Remove a splash screen
+
+        // Mostra o botão de feedback após a transição
+        document.getElementById('feedbackButton').style.display = 'block';
+    }, 2000); // Tempo total da animação (2 segundos)
+
     displayMainCategories();
     currentFilteredProducts = products;
 };
