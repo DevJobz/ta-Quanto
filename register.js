@@ -32,7 +32,7 @@ function validateEmail() {
     const emailError = document.getElementById('emailError');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(emailInput.value) && emailInput.value.trim() !== '') {
+    if (!emailRegex.test(emailInput.value)) {
         emailError.textContent = 'Formato de e-mail inválido.';
         emailError.style.display = 'block';
         emailInput.style.borderColor = '#ff4444';
@@ -40,15 +40,14 @@ function validateEmail() {
     } else {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const userExists = users.some((u) => u.email === emailInput.value);
-        if (userExists && emailInput.value.trim() !== '') {
+        if (userExists) {
             emailError.textContent = 'Este e-mail já está cadastrado.';
             emailError.style.display = 'block';
             emailInput.style.borderColor = '#ff4444';
             return false;
         } else {
             emailError.style.display = 'none';
-            emailInput.style.borderColor =
-                emailInput.value.trim() === '' ? '#ccc' : '#00c851';
+            emailInput.style.borderColor = '#00c851';
             return true;
         }
     }
@@ -63,19 +62,14 @@ function validateBirthDate() {
     const minDate = new Date('1900-01-01');
 
     if (selectedDate < minDate || selectedDate > currentDate) {
-        if (birthDateError) {
-            birthDateError.textContent =
-                'Data de nascimento inválida. Use uma data entre 1900 e o ano atual.';
-            birthDateError.style.display = 'block';
-        }
+        birthDateError.textContent =
+            'Data de nascimento inválida. Use uma data entre 1900 e o ano atual.';
+        birthDateError.style.display = 'block';
         birthDateInput.style.borderColor = '#ff4444';
         return false;
     } else {
-        if (birthDateError) {
-            birthDateError.style.display = 'none';
-        }
-        birthDateInput.style.borderColor =
-            birthDateInput.value.trim() === '' ? '#ccc' : '#00c851';
+        birthDateError.style.display = 'none';
+        birthDateInput.style.borderColor = '#00c851';
         return true;
     }
 }
@@ -87,16 +81,12 @@ function validateSelectFields() {
     selectFields.forEach((select) => {
         const errorElement = document.getElementById(`${select.id}Error`);
         if (select.value === '') {
-            if (errorElement) {
-                errorElement.textContent = 'Por favor, selecione uma opção.';
-                errorElement.style.display = 'block';
-            }
+            errorElement.textContent = 'Por favor, selecione uma opção.';
+            errorElement.style.display = 'block';
             select.style.borderColor = '#ff4444';
             isValid = false;
         } else {
-            if (errorElement) {
-                errorElement.style.display = 'none';
-            }
+            errorElement.style.display = 'none';
             select.style.borderColor = '#00c851';
         }
     });
@@ -109,7 +99,7 @@ function validateCPF() {
     const cpfError = document.getElementById('cpfError');
     const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 
-    if (!cpfRegex.test(cpfInput.value) && cpfInput.value.trim() !== '') {
+    if (!cpfRegex.test(cpfInput.value)) {
         cpfError.textContent = 'CPF inválido. Use o formato 000.000.000-00.';
         cpfError.style.display = 'block';
         cpfInput.style.borderColor = '#ff4444';
@@ -117,15 +107,14 @@ function validateCPF() {
     } else {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const userExists = users.some((u) => u.cpf === cpfInput.value);
-        if (userExists && cpfInput.value.trim() !== '') {
+        if (userExists) {
             cpfError.textContent = 'Este CPF já está cadastrado.';
             cpfError.style.display = 'block';
             cpfInput.style.borderColor = '#ff4444';
             return false;
         } else {
             cpfError.style.display = 'none';
-            cpfInput.style.borderColor =
-                cpfInput.value.trim() === '' ? '#ccc' : '#00c851';
+            cpfInput.style.borderColor = '#00c851';
             return true;
         }
     }
@@ -137,15 +126,14 @@ function validateCEP() {
     const cepError = document.getElementById('cepError');
     const cepRegex = /^\d{2}\.\d{3}-\d{3}$/;
 
-    if (!cepRegex.test(cepInput.value) && cepInput.value.trim() !== '') {
+    if (!cepRegex.test(cepInput.value)) {
         cepError.textContent = 'CEP inválido. Use o formato 00.000-000.';
         cepError.style.display = 'block';
         cepInput.style.borderColor = '#ff4444';
         return false;
     } else {
         cepError.style.display = 'none';
-        cepInput.style.borderColor =
-            cepInput.value.trim() === '' ? '#ccc' : '#00c851';
+        cepInput.style.borderColor = '#00c851';
         return true;
     }
 }
@@ -156,7 +144,7 @@ function validatePhone() {
     const phoneError = document.getElementById('phoneError');
     const phoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
 
-    if (!phoneRegex.test(phoneInput.value) && phoneInput.value.trim() !== '') {
+    if (!phoneRegex.test(phoneInput.value)) {
         phoneError.textContent =
             'Telefone inválido. Use o formato (00) 00000-0000 ou (00) 0000-0000.';
         phoneError.style.display = 'block';
@@ -173,8 +161,7 @@ function validatePhone() {
             return false;
         } else {
             phoneError.style.display = 'none';
-            phoneInput.style.borderColor =
-                phoneInput.value.trim() === '' ? '#ccc' : '#00c851';
+            phoneInput.style.borderColor = '#00c851';
             return true;
         }
     }
@@ -186,18 +173,14 @@ function validatePassword() {
     const confirmPasswordInput = document.getElementById('confirmPassword');
     const passwordError = document.getElementById('passwordError');
 
-    if (
-        passwordInput.value !== confirmPasswordInput.value &&
-        confirmPasswordInput.value.trim() !== ''
-    ) {
+    if (passwordInput.value !== confirmPasswordInput.value) {
         passwordError.textContent = 'As senhas não coincidem.';
         passwordError.style.display = 'block';
         confirmPasswordInput.style.borderColor = '#ff4444';
         return false;
     } else {
         passwordError.style.display = 'none';
-        confirmPasswordInput.style.borderColor =
-            confirmPasswordInput.value.trim() === '' ? '#ccc' : '#00c851';
+        confirmPasswordInput.style.borderColor = '#00c851';
         return true;
     }
 }
@@ -226,14 +209,7 @@ document.getElementById('cpf').addEventListener('input', function (e) {
 document.getElementById('phone').addEventListener('input', function (e) {
     let value = e.target.value.replace(/\D/g, '');
     if (value.length > 11) value = value.slice(0, 11);
-
-    // Formatação para 10 ou 11 dígitos
-    if (value.length === 11) {
-        value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    } else if (value.length === 10) {
-        value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-    }
-
+    value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     e.target.value = value;
 });
 
@@ -251,7 +227,6 @@ document
     .addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // Valida todos os campos
         const isNameValid = validateName();
         const isEmailValid = validateEmail();
         const isCPFValid = validateCPF();
@@ -261,7 +236,6 @@ document
         const isBirthDateValid = validateBirthDate();
         const isSelectFieldsValid = validateSelectFields();
 
-        // Verifica se todos os campos são válidos
         if (
             isNameValid &&
             isEmailValid &&
@@ -284,7 +258,7 @@ document
                 cep: document.getElementById('cep').value,
                 gender: document.getElementById('gender').value,
                 password: document.getElementById('registerPassword').value,
-                authorized: false, // Novo campo: por padrão, o usuário não está autorizado
+                authorized: false,
             };
             users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));
