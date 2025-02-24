@@ -53,6 +53,13 @@ function validateEmail() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const birthDateInput = document.getElementById('birthDate');
+
+    // Adiciona o evento 'blur' para validar a data ao sair do campo
+    birthDateInput.addEventListener('blur', validateBirthDate);
+});
+
 // Função para validar a data de nascimento
 function validateBirthDate() {
     const birthDateInput = document.getElementById('birthDate');
@@ -61,6 +68,16 @@ function validateBirthDate() {
     const currentDate = new Date();
     const minDate = new Date('1900-01-01');
 
+    // Verifica se o campo de data está vazio ou incompleto
+    if (!birthDateInput.value) {
+        birthDateError.textContent =
+            'Por favor, insira uma data completa (dia, mês e ano).';
+        birthDateError.style.display = 'block';
+        birthDateInput.style.borderColor = '#ff4444';
+        return false;
+    }
+
+    // Verifica se a data é válida (entre 1900 e o ano atual)
     if (selectedDate < minDate || selectedDate > currentDate) {
         birthDateError.textContent =
             'Data de nascimento inválida. Use uma data entre 1900 e o ano atual.';

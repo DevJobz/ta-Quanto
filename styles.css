@@ -1027,73 +1027,88 @@ body.dark-mode .feedback-button:hover {
     }
 }
 
-/* Estilos para a página de login */
+/* Estilos específicos para a página de login */
 .login-page {
     display: flex;
     justify-content: center;
+    height: 500px;
     align-items: center;
     min-height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #f0f4f8;
+    padding: 20px; /* Adiciona padding para evitar que o conteúdo encoste nas bordas */
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+}
+
+/* Animação de flutuação */
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.logo {
+    width: 250px; /* Reduzi um pouco para melhorar a responsividade */
+    margin-bottom: -30px; /* Reduzi o espaçamento para aproximar a logo dos campos */
+    animation: float 3s ease-in-out infinite; /* Aplica a animação */
 }
 
 .login-container {
-    background-color: #fff;
-    padding: 20px;
+    background-color: white;
+    padding: 1.5rem; /* Reduzi o padding para aproximar os elementos */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     text-align: center;
+    margin-bottom: 80px;
 }
 
 .login-container h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom: 1rem; /* Reduzi o espaçamento */
     color: #333;
 }
 
 .login-container input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
+    font-size: 1rem;
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
 }
 
 .login-container button {
     width: 100%;
-    padding: 10px;
+    padding: 0.75rem;
+    background-color: #4caf50;
+    color: white;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.login-container button[type='submit'] {
-    background-color: #28a745;
-    color: white;
-}
-
-.login-container button[type='submit']:hover {
-    background-color: #218838;
+.login-container button:hover {
+    background-color: #45a049;
 }
 
 .social-login {
-    margin-top: 20px;
+    margin-top: 1rem;
 }
 
 .social-login button {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: opacity 0.3s ease;
 }
 
 .social-login .google-login {
@@ -1116,12 +1131,12 @@ body.dark-mode .feedback-button:hover {
 }
 
 .login-container p {
-    margin-top: 20px;
+    margin-top: 1rem;
     color: #666;
 }
 
 .login-container a {
-    color: #28a745;
+    color: #4caf50;
     text-decoration: none;
 }
 
@@ -1129,12 +1144,38 @@ body.dark-mode .feedback-button:hover {
     text-decoration: underline;
 }
 
+/* Estilos para dispositivos móveis */
+@media (max-width: 480px) {
+    .logo {
+        width: 200px; /* Reduz o tamanho da logo em telas menores */
+        margin-bottom: -30px; /* Reduz o espaçamento */
+    }
+
+    .login-container {
+        padding: 1rem; /* Reduz o padding em telas menores */
+    }
+
+    .login-container h2 {
+        font-size: 1.25rem; /* Ajusta o tamanho da fonte */
+    }
+
+    .login-container input,
+    .login-container button,
+    .social-login button {
+        padding: 0.5rem; /* Reduz o padding dos inputs e botões */
+        font-size: 0.9rem; /* Reduz o tamanho da fonte */
+    }
+}
+
 /* Estilos para a página de registro */
-.register-page {
+body.register-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     background-color: #f4f4f4;
 }
 
@@ -1163,7 +1204,7 @@ body.dark-mode .feedback-button:hover {
 .register-container input,
 .register-container select {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Cor cinza inicial */
     border-radius: 5px;
     font-size: 16px;
     width: 100%;
