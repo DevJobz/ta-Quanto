@@ -1122,23 +1122,23 @@ body.dark-mode .feedback-button:hover {
     text-decoration: underline;
 }
 
-/* Estilos gerais do registro*/
+/* Estilos para a página de registro */
 body.register-page {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    background-color: #f4f4f4;
 }
 
 .register-container {
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     text-align: center;
@@ -1159,26 +1159,51 @@ body.register-page {
 .register-container input,
 .register-container select {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ccc; /* Cor cinza inicial */
+    border-radius: 5px;
     font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.register-container input[type='checkbox'] {
-    margin-right: 10px;
+/* Remove a borda vermelha inicial para campos de seleção e data */
+.register-container select:required:invalid,
+.register-container input[type='date']:required:invalid {
+    border-color: #ccc; /* Mantém a borda cinza inicial */
+    color: #555; /* Cor do texto inicial */
 }
 
-.register-container label {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #555;
+/* Aplica borda vermelha apenas se o campo de seleção ou data estiver inválido E o usuário já interagiu */
+.register-container select:required:invalid:not(:focus):not(:placeholder-shown),
+.register-container
+    input[type='date']:required:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #ff4444;
+}
+
+/* Aplica borda verde apenas se o campo de seleção ou data estiver válido */
+.register-container select:required:valid,
+.register-container input[type='date']:required:valid {
+    border-color: #00c851;
+}
+
+/* Aplica borda vermelha apenas se o campo de texto estiver inválido E não estiver vazio */
+.register-container input[type='text']:not(:placeholder-shown):invalid,
+.register-container input[type='email']:not(:placeholder-shown):invalid,
+.register-container input[type='password']:not(:placeholder-shown):invalid {
+    border-color: #ff4444;
+}
+
+/* Aplica borda verde apenas se o campo de texto estiver válido E não estiver vazio */
+.register-container input[type='text']:not(:placeholder-shown):valid,
+.register-container input[type='email']:not(:placeholder-shown):valid,
+.register-container input[type='password']:not(:placeholder-shown):valid {
+    border-color: #00c851;
 }
 
 .register-container button {
     padding: 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -1186,34 +1211,188 @@ body.register-page {
 
 .register-container button[type='submit'] {
     background-color: #28a745;
-    color: #fff;
+    color: white;
 }
 
 .register-container button[type='submit']:hover {
     background-color: #218838;
 }
 
-.register-container button[type='button'] {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-.register-container button[type='button']:hover {
-    background-color: #5a6268;
-}
-
 .register-container .back-button {
-    background-color: transparent;
-    border: none;
-    color: #007bff;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: left;
-    padding: 0;
-    margin-bottom: 10px;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 .register-container .back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para mensagens de erro */
+.error-message {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* Oculta inicialmente */
+}
+
+/* Estilo para campos inválidos */
+input:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
+    border-color: #ff4444;
+}
+
+input:valid:not(:placeholder-shown),
+select:valid:not(:placeholder-shown) {
+    border-color: #00c851;
+}
+
+/* Estilo inicial para campos */
+input,
+select {
+    border-color: #ccc; /* Cor cinza inicial */
+}
+
+/* Estilo para o campo de aceitar os termos */
+.terms-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.terms-label input {
+    margin: 0;
+    width: auto;
+}
+
+/* Estilos para a página de recuperação de senha */
+body.recovery-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.recovery-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.recovery-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.recovery-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.recovery-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.recovery-container button {
+    padding: 10px;
+    margin-top: 3px; /* Adiciona espaçamento acima do botão */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recovery-container button[type='submit'] {
+    background-color: #28a745;
+    color: white;
+}
+
+.recovery-container button[type='submit']:hover {
+    background-color: #218838;
+}
+
+.recovery-container .back-button {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px; /* Adiciona espaçamento acima do botão */
+}
+
+.recovery-container .back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para mensagens animadas */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    animation: slideIn 0.5s ease, slideOut 0.5s ease 2.5s;
+    z-index: 1000;
+}
+
+.message.success {
+    background-color: #00c851;
+}
+
+.message.error {
+    background-color: #ff4444;
+}
+
+.message a {
+    color: white;
     text-decoration: underline;
 }
 

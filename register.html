@@ -8,26 +8,25 @@
     </head>
     <body class="register-page">
         <div class="register-container">
-            <button
-                class="back-button"
-                onclick="window.location.href='login.html'"
-            >
-                ← Voltar
-            </button>
+            <a href="login.html" class="back-button">← Voltar</a>
             <h2>Registro</h2>
             <form id="registerForm">
                 <input
                     type="text"
                     id="fullName"
                     placeholder="Nome Completo"
+                    minlength="10"
+                    maxlength="50"
                     required
                 />
+                <div class="error-message" id="nameError"></div>
                 <input
                     type="email"
                     id="registerEmail"
                     placeholder="Email"
                     required
                 />
+                <div class="error-message" id="emailError"></div>
                 <input type="date" id="birthDate" required />
                 <select id="state" required>
                     <option value="">Selecione o Estado</option>
@@ -37,8 +36,29 @@
                     <option value="">Selecione a Cidade</option>
                     <!-- Cidades serão preenchidas via JavaScript -->
                 </select>
-                <input type="text" id="cep" placeholder="CEP" required />
-                <input type="text" id="cpf" placeholder="CPF" required />
+                <input
+                    type="text"
+                    id="cep"
+                    placeholder="CEP"
+                    pattern="\d{2}\.\d{3}-\d{3}"
+                    required
+                />
+                <div class="error-message" id="cepError"></div>
+                <input
+                    type="text"
+                    id="cpf"
+                    placeholder="CPF"
+                    pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                    required
+                />
+                <div class="error-message" id="cpfError"></div>
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Telefone Celular"
+                    required
+                />
+                <div class="error-message" id="phoneError"></div>
                 <select id="gender" required>
                     <option value="">Selecione o Sexo</option>
                     <option value="male">Masculino</option>
@@ -57,17 +77,12 @@
                     placeholder="Repetir Senha"
                     required
                 />
-                <label>
+                <div class="error-message" id="passwordError"></div>
+                <label class="terms-label">
                     <input type="checkbox" id="terms" required /> Aceito os
                     termos e condições
                 </label>
                 <button type="submit">Cadastrar</button>
-                <button
-                    type="button"
-                    onclick="window.location.href='login.html'"
-                >
-                    Voltar para Login
-                </button>
             </form>
         </div>
         <script src="register.js"></script>

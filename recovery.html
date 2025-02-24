@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recuperar Senha - TaQuanto</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body class="recovery-page">
+        <div class="recovery-container">
+            <h2>Recuperar Senha</h2>
+            <form id="recoveryForm">
+                <input
+                    type="email"
+                    id="recoveryEmail"
+                    placeholder="Email"
+                    required
+                />
+                <div class="error-message" id="emailError"></div>
+                <button type="submit">Recuperar Senha</button>
+            </form>
+            <a href="login.html" class="back-button">← Voltar para Login</a>
+        </div>
+        <script src="recovery.js"></script>
+    </body>
+</html>
