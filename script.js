@@ -832,25 +832,31 @@ window.addEventListener('click', (event) => {
 });
 
 // Enviar feedback (simulação)
-document.getElementById('feedbackForm').addEventListener('submit', (event) => {
-    event.preventDefault();
+document
+    .getElementById('feedbackForm')
+    .addEventListener('submit', function (e) {
+        e.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const feedbackType = document.getElementById('feedbackType').value;
-    const message = document.getElementById('message').value;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const feedbackType = document.getElementById('feedbackType').value;
+        const message = document.getElementById('message').value;
 
-    console.log('Feedback enviado:', { name, email, feedbackType, message });
+        const feedback = {
+            name,
+            email,
+            feedbackType,
+            message,
+            timestamp: new Date().toLocaleString(),
+        };
 
-    feedbackModal.classList.remove('open');
-    setTimeout(() => {
-        feedbackModal.style.display = 'none';
-    }, 300);
+        const feedbackList = JSON.parse(localStorage.getItem('feedback')) || [];
+        feedbackList.push(feedback);
+        localStorage.setItem('feedback', JSON.stringify(feedbackList));
 
-    document.getElementById('feedbackForm').reset();
-
-    alert('Obrigado pelo seu feedback!');
-});
+        alert('Feedback enviado com sucesso!');
+        this.reset();
+    });
 
 function editQuantity(productId, newQuantity) {
     saveHistory(); // Salva o estado atual antes de alterar a quantidade

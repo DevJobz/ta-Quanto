@@ -91,10 +91,9 @@ function validateBirthDate() {
     }
 }
 
-// Função para validar campos de seleção
 function validateSelectFields() {
     let isValid = true;
-    const selectFields = document.querySelectorAll('select');
+    const selectFields = document.querySelectorAll('select:not(#role)'); // Ignora o campo de role
     selectFields.forEach((select) => {
         const errorElement = document.getElementById(`${select.id}Error`);
         if (select.value === '') {
@@ -222,13 +221,48 @@ document.getElementById('cpf').addEventListener('input', function (e) {
     e.target.value = value;
 });
 
-// Máscara para telefone celular
+// Máscara para telefone celular e fixo
 document.getElementById('phone').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 11) value = value.slice(0, 11);
-    value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+    if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
+
+    // Aplica a máscara de acordo com o tamanho do número
+    if (value.length <= 10) {
+        value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3'); // Formato para telefone fixo (00) 0000-0000
+    } else {
+        value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); // Formato para celular (00) 00000-0000
+    }
     e.target.value = value;
 });
+
+// Função para validar o telefone celular e fixo
+function validatePhone() {
+    const phoneInput = document.getElementById('phone');
+    const phoneError = document.getElementById('phoneError');
+    const phoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/; // Aceita 10 ou 11 dígitos
+
+    if (!phoneRegex.test(phoneInput.value)) {
+        phoneError.textContent =
+            'Telefone inválido. Use o formato (00) 0000-0000 ou (00) 00000-0000.';
+        phoneError.style.display = 'block';
+        phoneInput.style.borderColor = '#ff4444';
+        return false;
+    } else {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userExists = users.some((u) => u.phone === phoneInput.value);
+        if (userExists) {
+            phoneError.textContent =
+                'Este número de telefone já está cadastrado.';
+            phoneError.style.display = 'block';
+            phoneInput.style.borderColor = '#ff4444';
+            return false;
+        } else {
+            phoneError.style.display = 'none';
+            phoneInput.style.borderColor = '#00c851';
+            return true;
+        }
+    }
+}
 
 // Máscara para CEP
 document.getElementById('cep').addEventListener('input', function (e) {
@@ -276,6 +310,8 @@ document
                 gender: document.getElementById('gender').value,
                 password: document.getElementById('registerPassword').value,
                 authorized: false,
+                isAdmin: false,
+                role: 'user', // Define o papel padrão como 'user'
             };
             users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));

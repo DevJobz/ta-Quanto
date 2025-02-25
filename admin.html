@@ -6,64 +6,265 @@
         <title>Administração - TaQuanto</title>
         <link rel="stylesheet" href="styles.css" />
         <style>
-            /* Estilos para a tabela de administração */
-            table {
+            /* Estilos específicos para o painel de controle */
+            .admin-page {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh; /* Ocupa pelo menos 100% da altura da viewport */
+            }
+
+            .admin-header {
+                background-color: #25323f;
+                color: white;
+                padding: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0;
+            }
+
+            .admin-header button {
+                background-color: #1abc9c;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .admin-container {
+                display: flex;
+                flex: 1; /* Faz o container ocupar o espaço restante */
+                overflow: hidden; /* Remove barras de rolagem desnecessárias */
+            }
+
+            .admin-nav {
+                width: 250px;
+                background-color: #34495e;
+                color: white;
+                padding: 20px;
+                overflow-y: auto; /* Adiciona barra de rolagem vertical apenas se necessário */
+            }
+
+            .admin-nav ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .admin-nav ul li {
+                margin-bottom: 15px;
+            }
+
+            .admin-nav ul li a {
+                color: white;
+                text-decoration: none;
+                font-size: 16px;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            .admin-nav ul li a:hover {
+                background-color: #1abc9c;
+            }
+
+            .admin-main {
+                flex: 1; /* Faz o main ocupar o espaço restante */
+                padding: 20px;
+                background-color: #f4f4f4;
+                overflow-y: auto; /* Adiciona barra de rolagem vertical apenas se necessário */
+            }
+
+            .section-content {
+                display: none;
+            }
+
+            .section-content.active {
+                display: block;
+            }
+
+            .admin-table {
                 width: 100%;
                 border-collapse: collapse;
                 margin-top: 20px;
+                background-color: white;
+                border-radius: 5px;
+                overflow: hidden;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
-            th,
-            td {
-                padding: 10px;
-                border: 1px solid #ccc;
+
+            .admin-table th,
+            .admin-table td {
+                padding: 12px;
+                border: 1px solid #ddd;
                 text-align: left;
             }
-            th {
-                background-color: #f4f4f4;
+
+            .admin-table th {
+                background-color: #2c3e50;
+                color: white;
             }
+
+            .admin-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .admin-table tr:hover {
+                background-color: #f1f1f1;
+            }
+
             .actions {
                 display: flex;
                 gap: 10px;
             }
+
             .actions button {
                 padding: 5px 10px;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
+                font-size: 14px;
             }
+
             .actions button.delete {
                 background-color: #ff4444;
                 color: white;
             }
+
             .actions button.toggle-auth {
                 background-color: #28a745;
                 color: white;
             }
+
+            .admin-search {
+                margin-bottom: 20px;
+            }
+
+            .admin-search input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            @media (max-width: 768px) {
+                .admin-container {
+                    flex-direction: column;
+                }
+
+                .admin-nav {
+                    width: 100%;
+                    padding: 10px;
+                }
+
+                .admin-nav ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
+
+                .admin-nav ul li {
+                    margin-bottom: 0;
+                }
+
+                .admin-main {
+                    padding: 10px; /* Reduz o padding em dispositivos móveis */
+                }
+
+                .admin-table th,
+                .admin-table td {
+                    padding: 8px;
+                    font-size: 14px;
+                }
+
+                .actions {
+                    flex-direction: column;
+                    gap: 5px;
+                }
+
+                .actions button {
+                    width: 100%;
+                }
+            }
         </style>
     </head>
     <body class="admin-page">
+        <div class="admin-header">
+            <p>Usuário: <strong id="loggedInUser"></strong></p>
+            <button onclick="window.location.href='index.html'">
+                Ir à Página Principal
+            </button>
+        </div>
         <div class="admin-container">
-            <h2>Administração de Usuários</h2>
-            <table id="usersTable">
-                <thead>
-                    <tr>
-                        <th>Nome Completo</th>
-                        <th>Email</th>
-                        <th>CPF</th>
-                        <th>Telefone</th>
-                        <th>Data de Nascimento</th>
-                        <th>Estado</th>
-                        <th>Cidade</th>
-                        <th>CEP</th>
-                        <th>Sexo</th>
-                        <th>Autorizado</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Os dados dos usuários serão preenchidos via JavaScript -->
-                </tbody>
-            </table>
+            <!-- Nav Lateral -->
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="#" data-section="users">Usuários</a></li>
+                    <li><a href="#" data-section="feedback">Feedback</a></li>
+                    <li>
+                        <a href="#" data-section="permissions">Permissões</a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="requests">Solicitações</a>
+                    </li>
+                    <li><a href="#" data-section="logout">Sair</a></li>
+                </ul>
+            </nav>
+
+            <!-- Área Principal -->
+            <main class="admin-main">
+                <div id="usersSection" class="section-content active">
+                    <h2>Administração de Usuários</h2>
+                    <div class="admin-search">
+                        <input
+                            type="text"
+                            id="userSearch"
+                            placeholder="Pesquisar usuários..."
+                        />
+                    </div>
+                    <div class="undo-container">
+                        <button id="undoButton" class="undo-btn">
+                            Desfazer Última Ação
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="admin-table" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome Completo</th>
+                                    <th>Email</th>
+                                    <th>CPF</th>
+                                    <th>Telefone</th>
+                                    <th>Data de Nascimento</th>
+                                    <th>Estado</th>
+                                    <th>Cidade</th>
+                                    <th>CEP</th>
+                                    <th>Sexo</th>
+                                    <th>Autorizado</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Os dados dos usuários serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="feedbackSection" class="section-content">
+                    <h2>Mensagens de Feedback</h2>
+                    <div id="feedbackList"></div>
+                </div>
+                <div id="permissionsSection" class="section-content">
+                    <h2>Gerenciar Permissões</h2>
+                    <div id="permissionsList"></div>
+                </div>
+                <div id="requestsSection" class="section-content">
+                    <h2>Solicitações de Exclusão</h2>
+                    <div id="requestsList"></div>
+                </div>
+            </main>
         </div>
         <script src="admin.js"></script>
     </body>

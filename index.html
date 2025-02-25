@@ -20,6 +20,10 @@
         </div>
 
         <button id="logoutButton">Logout</button>
+        <!-- Botão de Acesso à Administração (só aparece para o admin) -->
+        <button id="adminAccessButton" style="display: none">
+            Acessar Painel de Controle
+        </button>
 
         <script>
             document
@@ -180,6 +184,26 @@
 
                 if (!isLoggedIn) {
                     window.location.href = 'login.html';
+                }
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const currentUser = JSON.parse(
+                    localStorage.getItem('currentUser')
+                );
+                const adminAccessButton =
+                    document.getElementById('adminAccessButton');
+
+                if (
+                    currentUser &&
+                    (currentUser.role === 'master' ||
+                        currentUser.role === 'moderator')
+                ) {
+                    adminAccessButton.style.display = 'block'; // Exibe o botão
+                    adminAccessButton.addEventListener('click', function () {
+                        window.location.href = 'admin.html'; // Redireciona para a página de administração
+                    });
                 }
             });
         </script>
