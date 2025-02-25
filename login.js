@@ -14,6 +14,35 @@ let lastAlertedEmail = '';
 
 console.log('Script login.js carregado!');
 
+// Verifica se já existem usuários no localStorage
+const users = JSON.parse(localStorage.getItem('users')) || [];
+
+// Verifica se o usuário administrador já existe
+const adminExists = users.some((user) => user.email === 'admin@taquanto.com');
+
+// Se o usuário administrador não existir, cria um novo
+if (!adminExists) {
+    console.log('Criando usuário administrador padrão...');
+    const adminUser = {
+        fullName: 'Admin',
+        email: 'admin@taquanto.com', // E-mail corrigido
+        password: 'admin', // Senha corrigida
+        cpf: '000.000.000-00',
+        phone: '(00) 00000-0000',
+        birthDate: '1990-01-01',
+        state: 'SP',
+        city: 'São Paulo',
+        cep: '00000-000',
+        gender: 'Masculino',
+        authorized: true,
+        isAdmin: true, // Adiciona a propriedade isAdmin para identificar o administrador
+    };
+
+    users.push(adminUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    console.log('Usuário administrador criado:', adminUser);
+}
+
 document
     .getElementById('loginForm')
     .addEventListener('submit', function (event) {
@@ -31,6 +60,8 @@ document
         const user = users.find(
             (u) => u.email === email && u.password === password
         );
+
+        console.log('Usuário encontrado:', user); // Depuração: Verifica o usuário encontrado
 
         if (user) {
             console.log('Usuário encontrado:', user);
