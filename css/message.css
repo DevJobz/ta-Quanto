@@ -1,0 +1,71 @@
+/* Estilos para mensagens animadas */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    animation: slideIn 0.5s ease, slideOut 0.5s ease 2.5s;
+    z-index: 1000;
+}
+
+.message.success {
+    background-color: #00c851;
+    margin-left: 19px;
+    text-align: center;
+}
+
+.message.error {
+    background-color: #ff4444;
+    margin-left: 19px;
+    text-align: center;
+}
+
+.message a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Estilo para mensagens de erro */
+.error-message {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* Oculta inicialmente */
+}
+
+/* Estilo para campos inválidos */
+input:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
+    border-color: #ff4444;
+}
+
+input:valid:not(:placeholder-shown),
+select:valid:not(:placeholder-shown) {
+    border-color: #00c851;
+}
+
+/* Estilo inicial para campos */
+input,
+select {
+    border-color: #ccc; /* Cor cinza inicial */
+}

@@ -4,12 +4,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Registro - TaQuanto</title>
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/css/register.css" />
+        <link rel="stylesheet" href="/css/message.css" />
     </head>
     <body class="register-page">
         <div class="register-container">
             <a href="login.html" class="back-button">← Voltar</a>
-            <h2>Registro</h2>
+            <h2>Insira seus dados abaixo!</h2>
             <form id="registerForm">
                 <!-- Nome Completo -->
                 <input
@@ -26,7 +28,7 @@
                 <input
                     type="email"
                     id="registerEmail"
-                    placeholder="Email"
+                    placeholder="Seu E-mail"
                     required
                 />
                 <div class="error-message" id="emailError"></div>
@@ -37,14 +39,14 @@
 
                 <!-- Estado -->
                 <select id="state" required>
-                    <option value="">Selecione o Estado</option>
+                    <option value="">Selecione o Estado onde mora</option>
                     <!-- Estados serão preenchidos via JavaScript -->
                 </select>
                 <div class="error-message" id="stateError"></div>
 
                 <!-- Cidade -->
                 <select id="city" required>
-                    <option value="">Selecione a Cidade</option>
+                    <option value="">Selecione a sua Cidade</option>
                     <!-- Cidades serão preenchidas via JavaScript -->
                 </select>
                 <div class="error-message" id="cityError"></div>
@@ -53,7 +55,7 @@
                 <input
                     type="text"
                     id="cep"
-                    placeholder="CEP"
+                    placeholder="Seu CEP"
                     pattern="\d{2}\.\d{3}-\d{3}"
                     required
                 />
@@ -63,7 +65,7 @@
                 <input
                     type="text"
                     id="cpf"
-                    placeholder="CPF"
+                    placeholder="Seu CPF"
                     pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                     required
                 />
@@ -73,7 +75,7 @@
                 <input
                     type="text"
                     id="phone"
-                    placeholder="Telefone Celular"
+                    placeholder="Seu número Celular"
                     required
                 />
                 <div class="error-message" id="phoneError"></div>
@@ -107,13 +109,16 @@
                 <!-- Termos e Condições -->
                 <label class="terms-label">
                     <input type="checkbox" id="terms" required /> Aceito os
-                    termos e condições
+                    termos e
+                    <a onclick="return false;" class="terms-conditions" href=""
+                        >condições</a
+                    >
                 </label>
 
                 <!-- Botão de Cadastro -->
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
-        <script src="register.js"></script>
+        <script src="/js/register.js"></script>
     </body>
 </html>

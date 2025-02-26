@@ -1,0 +1,151 @@
+/* Estilos para a página de registro */
+body.register-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.register-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.register-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.register-container input,
+.register-container select {
+    padding: 10px;
+    border: 1px solid #ccc; /* Cor cinza inicial */
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Remove a borda vermelha inicial para campos de seleção e data */
+.register-container select:required:invalid,
+.register-container input[type='date']:required:invalid {
+    border-color: #ccc; /* Mantém a borda cinza inicial */
+    color: #555; /* Cor do texto inicial */
+}
+
+/* Aplica borda vermelha apenas se o campo de seleção ou data estiver inválido E o usuário já interagiu */
+.register-container select:required:invalid:not(:focus):not(:placeholder-shown),
+.register-container
+    input[type='date']:required:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #ff4444;
+}
+
+/* Aplica borda verde apenas se o campo de seleção ou data estiver válido */
+.register-container select:required:valid,
+.register-container input[type='date']:required:valid {
+    border-color: #00c851;
+}
+
+/* Aplica borda vermelha apenas se o campo de texto estiver inválido E não estiver vazio */
+.register-container input[type='text']:not(:placeholder-shown):invalid,
+.register-container input[type='email']:not(:placeholder-shown):invalid,
+.register-container input[type='password']:not(:placeholder-shown):invalid {
+    border-color: #ff4444;
+}
+
+/* Aplica borda verde apenas se o campo de texto estiver válido E não estiver vazio */
+.register-container input[type='text']:not(:placeholder-shown):valid,
+.register-container input[type='email']:not(:placeholder-shown):valid,
+.register-container input[type='password']:not(:placeholder-shown):valid {
+    border-color: #00c851;
+}
+
+.register-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-container button[type='submit'] {
+    background-color: #28a745;
+    color: white;
+}
+
+.register-container button[type='submit']:hover {
+    background-color: #218838;
+}
+
+.register-container .back-button {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.register-container .back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 15px;
+    }
+
+    .register-container h2 {
+        font-size: 20px;
+    }
+
+    .register-container input,
+    .register-container select,
+    .register-container button {
+        font-size: 14px;
+    }
+}
+
+/* Estilo para o campo de aceitar os termos */
+.terms-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    margin-top: 2px;
+}
+
+.terms-label input {
+    margin: 0;
+    width: auto;
+}
+
+.terms-conditions {
+    text-decoration: none;
+    color: inherit;
+    color: rgba(2, 45, 163, 0.637);
+    margin: -5px;
+}
